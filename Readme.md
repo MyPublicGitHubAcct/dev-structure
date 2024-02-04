@@ -4,7 +4,7 @@ dev-env is used to test folder strutures, etc.
 
 ## Directory Structure
 
-![image](img/project-structure.png width='30')
+<img src='img/project-structure.png' width='160'>
 
 ## Language Servers for Sublime Text
 
