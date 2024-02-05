@@ -4,7 +4,6 @@ import os
 import errno
 
 """
-
 Make a directory with these included
 
 |-- project
@@ -20,29 +19,21 @@ Make a directory with these included
 |   |-- project.cc
 
 Run like python3 add-project.py ProjectName
-
 """
 
 prj_name = sys.argv[1]
 
-MAKEFILE_CONTENT = '# this is a makefile' + '\n' + \
+MAKEFILE_CONTENT = '# makefile for ' + prj_name + '\n' + \
     '\n' + \
     'TARGET = ' + prj_name + '\n' + \
     'OBJS = ' + prj_name + '.o' + '\n' + \
     '\n' + \
-    'all: $(TARGET)' + '\n' + \
+    'PACKAGES := \\' + '\n' + \
+    '\t' + '$(TARGET) \\' + '\n' + \
+    '\t' + '$(TARGET)/drivers \\' + '\n' + \
     '\n' + \
-    '%.o: %.c' + '\n' + \
-    '\t' + 'g++ -c $< -o $@' + '\n' + \
-    '\n' + \
-    '$(TARGET): $(OBJS)' + '\n' + \
-    '\t' + 'g++ $(OBJS) -o $@' + '\n' + \
-    '\n' + \
-    'clean:' + '\n' + \
-    '\t' + 'rm - rf $(TARGET) *.o' + '\n' + \
-    '\n' + \
-    '.PHONY: all clean' + '\n'
-
+    'include ../my-lib/makefile.inc' + \
+    '\n'
 
 PROJECT_CPP_CONTENT = '#include <cstdio>' + '\n' + \
     '\n' + \
