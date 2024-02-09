@@ -17,6 +17,7 @@ __LSP-clangd__ for C/C++ and __LSP-pyright__ for Python.
 ## TODO
 
 - Figure makefile for the project
+- get testing working with criterion
 - how to list source files through the dir - foreach example not working
 - look into built-in variables
 - why doesn't ```$(notdir $(wildcard $(patsubst %,%/*.cc,$(PACKAGES))))``` work?

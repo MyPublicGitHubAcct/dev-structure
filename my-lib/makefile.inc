@@ -1,29 +1,39 @@
 # Include in the Makefile in all projects
 
-CC             = gcc
-CXX            = g++
+CC             := gcc
+CXX            := g++
 
-SOURCES := $(wildcard *.cc) $(wildcard drivers/*.cc)
-OBJECTS := $(patsubst %.cc, %.o, $(SOURCES))
+CXXFLAGS       := -std=c++11 -Wall
 
-DIR = $(notdir $(CURDIR))
+# Directories
+SRC_DIR := .
+BUILD_DIR := build
+BIN_DIR := bin
+
+# Source files
+SRCS := $(wildcard $(SRC_DIR)/*.cc) $(wildcard $(SRC_DIR)/*/*.cc)
+OBJS := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(SRCS))
+
+# Executable
+TARGET := $(BIN_DIR)/$(TARGET)
 
 all: $(TARGET)
 
-%.o: %.cc
-	$(CXX) -c $< -o $@
-
+# Build the executable
 $(TARGET): $(OBJS)
-	$(CXX) $(OBJS) -o $@
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) $^ -o $@
 
-po:
-	@echo $(OBJECTS)
+# Build object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
 ps:
-	@echo $(SOURCES)
+	@echo $(SRCS)
 
-pp:
-	@echo $(PACKAGES)
+po:
+	@echo $(OBJS)
 
 ptp:
 	@echo $(MAKEFILE_LIST)
@@ -31,10 +41,7 @@ ptp:
 pcd:
 	@echo $(CURDIR)
 
-pd:
-	@echo $(DIR)
-
 clean:
-	rm -rf $(TARGET) *.o
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 .PHONY: all clean

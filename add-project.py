@@ -26,11 +26,6 @@ prj_name = sys.argv[1]
 MAKEFILE_CONTENT = '# makefile for ' + prj_name + '\n' + \
     '\n' + \
     'TARGET = ' + prj_name + '\n' + \
-    'OBJS = ' + prj_name + '.o' + '\n' + \
-    '\n' + \
-    'PACKAGES := \\' + '\n' + \
-    '\t' + '$(TARGET) \\' + '\n' + \
-    '\t' + '$(TARGET)/drivers \\' + '\n' + \
     '\n' + \
     'include ../my-lib/makefile.inc' + \
     '\n'
