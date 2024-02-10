@@ -27,15 +27,24 @@ MAKEFILE_CONTENT = '# makefile for ' + prj_name + '\n' + \
     '\n' + \
     'TARGET = ' + prj_name + '\n' + \
     '\n' + \
-    'include ../my-lib/makefile.inc' + \
-    '\n'
+    'include ../my-lib/makefile.inc' + '\n'
+
+DRIVER_H = 'int driver();'
+
+DRIVER_CC = '#include "driver.h"' + '\n' + \
+    '\n' + \
+    'int driver()' + '\n' + \
+    '{' + '\n' + \
+    '    return 7;' + '\n' + \
+    '}' + '\n'
 
 PROJECT_CPP_CONTENT = '#include <cstdio>' + '\n' + \
+    '#include "drivers/driver.h"' + '\n' + \
     '\n' + \
-    '' + \
-    '' + \
-    'int main() {' + '\n' + \
-    '    printf(\"Hello World\\n\");' + '\n' + \
+    'int main()' + '\n' + \
+    '{' + '\n' + \
+    '    int var = driver();' + '\n' + \
+    '    printf(\"Hello World %d \\n\", var);' + '\n' + \
     '    return 0;' + '\n' + \
     '}' + '\n'
 
@@ -52,6 +61,14 @@ try:
 
     f = open(prj_name + "/Makefile", "w")
     f.write(MAKEFILE_CONTENT)
+    f.close()
+
+    f = open(prj_name + "/drivers/driver" + ".h", "w")
+    f.write(DRIVER_H)
+    f.close()
+
+    f = open(prj_name + "/drivers/driver" + ".cc", "w")
+    f.write(DRIVER_CC)
     f.close()
 
     f = open(prj_name + "/" + prj_name + ".cc", "w")

@@ -11,7 +11,7 @@ BUILD_DIR := build
 BIN_DIR := bin
 
 # Source files
-SRCS := $(wildcard $(SRC_DIR)/*.cc) $(wildcard $(SRC_DIR)/*/*.cc)
+SRCS := $(wildcard $(SRC_DIR)/*.cc) $(wildcard $(SRC_DIR)/*/*.cc) $(wildcard $(SRC_DIR)/*/*/*.cc)
 OBJS := $(patsubst $(SRC_DIR)/%.cc,$(BUILD_DIR)/%.o,$(SRCS))
 
 # Executable
@@ -29,6 +29,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cc
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDE_DIRS) -c $< -o $@
 
+# Checking values
 ps:
 	@echo $(SRCS)
 
@@ -41,7 +42,11 @@ ptp:
 pcd:
 	@echo $(CURDIR)
 
+# Project cleaning
+rmbuild:
+	rm -r $(BUILD_DIR)
+
 clean:
 	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
-.PHONY: all clean
+.PHONY: all rmbuild clean ps po ptp pcd
