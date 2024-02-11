@@ -27,15 +27,22 @@ MAKEFILE_CONTENT = '# makefile for ' + prj_name + '\n' + \
     '\n' + \
     'TARGET = ' + prj_name + '\n' + \
     '\n' + \
+    'EXCLD_TESTS = drivertest.cc' + '\n' + \
+    '\n' + \
     'include ../my-lib/makefile.inc' + '\n'
 
-DRIVER_H = 'int driver();'
+DRIVER_H = '#ifndef DRIVER_H' + '\n' + \
+    '#define DRIVER_H' + '\n' + \
+    '\n' + \
+    'int driver();' + '\n' + \
+    '\n' + \
+    '#endif' + '\n'
 
 DRIVER_CC = '#include "driver.h"' + '\n' + \
     '\n' + \
     'int driver()' + '\n' + \
     '{' + '\n' + \
-    '    return 7;' + '\n' + \
+    '    return 6;' + '\n' + \
     '}' + '\n'
 
 PROJECT_CPP_CONTENT = '#include <cstdio>' + '\n' + \
@@ -48,6 +55,15 @@ PROJECT_CPP_CONTENT = '#include <cstdio>' + '\n' + \
     '    return 0;' + '\n' + \
     '}' + '\n'
 
+TEST_FILE_CC = '#include <criterion/criterion.h>' + '\n' + \
+    '#include "../drivers/driver.h"' + '\n' + \
+    '\n' + \
+    'Test(suitename, testname)' + '\n' + \
+    '{' + '\n' + \
+    '    int val = driver();' + '\n' + \
+    '    cr_expect(val == 6, "driver() should return 7");' + '\n' + \
+    '}' + '\n'
+
 try:
     os.makedirs(sys.argv[1], exist_ok=False)
     os.makedirs(os.path.join(prj_name, "bootloader"), exist_ok=False)
@@ -57,7 +73,7 @@ try:
     os.makedirs(os.path.join(prj_name, "hardware_design"), exist_ok=False)
     os.makedirs(os.path.join(prj_name, "libs"), exist_ok=False)
     os.makedirs(os.path.join(prj_name, "resources"), exist_ok=False)
-    os.makedirs(os.path.join(prj_name, "test"), exist_ok=False)
+    os.makedirs(os.path.join(prj_name, "tests"), exist_ok=False)
 
     f = open(prj_name + "/Makefile", "w")
     f.write(MAKEFILE_CONTENT)
@@ -71,11 +87,15 @@ try:
     f.write(DRIVER_CC)
     f.close()
 
+    f = open(prj_name + "/tests/drivertest" + ".cc", "w")
+    f.write(TEST_FILE_CC)
+    f.close()
+
     f = open(prj_name + "/" + prj_name + ".cc", "w")
     f.write(PROJECT_CPP_CONTENT)
     f.close()
 
-    print(prj_name + " was created because you are awesome.")
+    print(prj_name + " was created.")
 except FileExistsError as error:
     print(error)
     pass
