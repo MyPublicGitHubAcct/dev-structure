@@ -61,7 +61,7 @@ TEST_FILE_CC = '#include <criterion/criterion.h>' + '\n' + \
     'Test(suitename, testname)' + '\n' + \
     '{' + '\n' + \
     '    int val = driver();' + '\n' + \
-    '    cr_expect(val == 6, "driver() should return 7");' + '\n' + \
+    '    cr_expect(val == 7, "driver() should return 6");' + '\n' + \
     '}' + '\n'
 
 try:
