@@ -15,8 +15,8 @@ INCLUDE_DIRS :=
 TEST_DIR := tests
 
 # Criterion
-CRITERION_INCLUDE := /opt/homebrew/Cellar/criterion/2.4.2/include
-CRITERION_LIBRARY := /opt/homebrew/Cellar/criterion/2.4.2/lib
+CRITERION_INCLUDE := /opt/homebrew/Cellar/criterion/2.4.2_1/include/criterion
+CRITERION_LIBRARY := /opt/homebrew/Cellar/criterion/2.4.2_1/lib
 
 # Source files
 SRCS := \
