@@ -55,7 +55,7 @@ PROJECT_CPP_CONTENT = '#include <cstdio>' + '\n' + \
     '    return 0;' + '\n' + \
     '}' + '\n'
 
-TEST_FILE_CC = '#include <criterion/criterion.h>' + '\n' + \
+TEST_FILE_CC = '#include <criterion.h>' + '\n' + \
     '#include "../drivers/driver.h"' + '\n' + \
     '\n' + \
     'Test(suitename, testname)' + '\n' + \
